@@ -1,3 +1,6 @@
+fuse_subgraphs: False
+fuse_ave_width: 0
+
 distributed:
   logging:
     bokeh: critical
@@ -10,10 +13,13 @@ distributed:
       limit: 5s
 
 kubernetes:
-  worker-name: dask-{JUPYTERHUB_USER}-{uuid}
+  count:
+    max: 50
   worker-template:
     metadata:
     spec:
+      nodeSelector:
+        dask-worker: True
       restartPolicy: Never
       containers:
       - args:
@@ -32,5 +38,5 @@ kubernetes:
             cpu: "1.75"
             memory: 7G
           requests:
-            cpu: "1.75"
+            cpu: 1
             memory: 7G
