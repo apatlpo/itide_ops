@@ -4,5 +4,6 @@ channels:
 dependencies:
   - pytide
   - pyinterp
-  - pip:
-    - h3
+  - pip
+#  - pip:
+#    - h3
