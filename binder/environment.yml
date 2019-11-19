@@ -4,6 +4,7 @@ channels:
 dependencies:
   - pytide
   - pyinterp
+  - xhistogram
 #  - pip
 #  - cmake
 #  - pip:
