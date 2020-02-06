@@ -55,7 +55,7 @@ def harmonic_analysis(df, ssh_key, min_count=100, constituents=None):
 
 # h3 code
 
-def get_hex(row, resolution):
+def get_hex(row, resolution, *args, **kwargs):
     return h3.geo_to_h3(row["latitude"], row["longitude"], resolution)
 
 def add_lonlat(df, reset_index=False):
