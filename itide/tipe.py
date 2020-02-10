@@ -6,10 +6,13 @@ from h3 import h3
 
 import pytide
 
+import matplotlib as mpl
 import matplotlib.pyplot as plt
+import matplotlib.cm as cm
 import cartopy.crs as ccrs
 import cartopy.feature as cfeature
 
+from shapely.geometry.polygon import Polygon
 
 # various plotting parameter
 
@@ -64,6 +67,11 @@ def add_lonlat(df, reset_index=False):
     df['lat'] = df['hex_id'].apply(lambda x: h3.h3_to_geo(x)[0])
     df['lon'] = df['hex_id'].apply(lambda x: h3.h3_to_geo(x)[1])
     return df
+    
+def id_to_bdy(hex_id):
+    hex_boundary = h3.h3_to_geo_boundary(hex_id) # array of arrays of [lat, lng]                                                                                                                                                                                                                                                         
+    hex_boundary = hex_boundary+[hex_boundary[0]]
+    return [[h[1], h[0]] for h in hex_boundary]
 
 def plot_h3_simple(df, metric_col, x='lon', y='lat', marker='o', alpha=1, 
                  figsize=(16,12), colormap='viridis'):
@@ -75,7 +83,8 @@ def plot_h3_simple(df, metric_col, x='lon', y='lat', marker='o', alpha=1,
 def plot_h3(df, metric_col, vmin=None, vmax=None, 
             x='lon', y='lat', marker='o', alpha=1, s=3**2,
             figsize=(10,10), 
-            colorbar=True, colormap='plasma_r', colorbar_kwargs={}, 
+            colorbar=True, colormap='plasma_r', colorbar_kwargs={},
+            scatter=True,
             **kwargs):
     #
     _projection = plt_params['projection']
@@ -94,6 +103,7 @@ def plot_h3(df, metric_col, vmin=None, vmax=None,
         _df = df[metric_col[0]].join([df['lon'], df['lat']])
         _mcol = metric_col[1]
     #
+    if scatter:
     im = _df.plot.scatter(x=x, y=y, c=_mcol, s=s,
                     title=_mcol,
                     vmin=vmin, vmax=vmax,
@@ -101,6 +111,21 @@ def plot_h3(df, metric_col, vmin=None, vmax=None,
                     edgecolors='none', colormap=colormap, 
                     marker=marker, alpha=alpha, figsize=figsize,
                     transform=ccrs.PlateCarree(), **kwargs)
+    else:
+        if vmin is None:
+            vmin = _df[_mcol].min()
+        if vmax is None:
+            vmax = _df[_mcol].max()
+        norm = mpl.colors.Normalize(vmin=vmin, vmax=vmax)
+        cmap = cm.get_cmap(colormap)
+        m = cm.ScalarMappable(norm=norm, cmap=cmap)
+
+        for index, row in _df.iterrows():
+            pgon = Polygon(id_to_bdy(row['hex_id']))
+            ax.add_geometries([pgon], crs=ccrs.PlateCarree(),
+                              facecolor=m.to_rgba(row[_mcol]),
+                              edgecolor=None)
+        
     plt.xticks([], []); plt.yticks([], [])
     
     #if colorbar:
