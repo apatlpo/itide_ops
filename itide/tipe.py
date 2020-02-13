@@ -104,13 +104,13 @@ def plot_h3(df, metric_col, vmin=None, vmax=None,
         _mcol = metric_col[1]
     #
     if scatter:
-    im = _df.plot.scatter(x=x, y=y, c=_mcol, s=s,
-                    title=_mcol,
-                    vmin=vmin, vmax=vmax,
-                    ax = ax,
-                    edgecolors='none', colormap=colormap, 
-                    marker=marker, alpha=alpha, figsize=figsize,
-                    transform=ccrs.PlateCarree(), **kwargs)
+        im = _df.plot.scatter(x=x, y=y, c=_mcol, s=s,
+                        title=_mcol,
+                        vmin=vmin, vmax=vmax,
+                        ax = ax,
+                        edgecolors='none', colormap=colormap, 
+                        marker=marker, alpha=alpha, figsize=figsize,
+                        transform=ccrs.PlateCarree(), **kwargs)
     else:
         if vmin is None:
             vmin = _df[_mcol].min()
