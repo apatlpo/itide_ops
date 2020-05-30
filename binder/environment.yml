@@ -5,7 +5,7 @@ dependencies:
   - pytide
   - pyinterp
   - xhistogram
-#  - pip
-#  - cmake
-#  - pip:
-#    - h3
+  - pip
+  - cmake
+  - pip:
+    - h3
