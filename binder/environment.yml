@@ -8,5 +8,6 @@ dependencies:
   - xhistogram
   - pip
   - cmake
+  - sympy
   - pip:
     - h3
