@@ -1,12 +1,8 @@
-=============================
-Internal-Tide-Obs
-=============================
+# Internal-Tide-Obs
 
 Gathers various notebooks and tools to assess internal tide observability
 
-Features
---------
-
+## Features
 
 Note on install [fastparquet](https://pypi.org/project/fastparquet/):
 
@@ -27,9 +23,9 @@ conda install -c conda-forge cmake
 pip install h3
 ```
 
+[![badge](https://img.shields.io/static/v1.svg?logo=Jupyter&label=Pangeo+Binder&message=GCE+us-central1&color=blue)](https://binder.pangeo.io/v2/gh/apatlpo/itide_ops/master?urlpath=lab)
 
-Binder
---------
+[![badge](https://img.shields.io/static/v1.svg?logo=Jupyter&label=Pangeo+Binder&message=AWS+us-west-2&color=orange)](https://aws-uswest2-binder.pangeo.io/v2/gh/apatlpo/itide_ops/master?urlpath=lab)
 
 Try these notebooks on pangeo.binder.io_ : |Binder|
 
@@ -37,11 +33,3 @@ See http://pangeo.io for more information.
 
 Features
 --------
-
-* TODO
-
-.. _pangeo.binder.io: http://binder.pangeo.io/
-
-.. |Binder| image:: http://binder.pangeo.io/badge.svg
-    :target: http://binder.pangeo.io/v2/gh/apatlpo/itide_ops/master
-

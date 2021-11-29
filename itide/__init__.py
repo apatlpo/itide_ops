@@ -1,3 +1,3 @@
-__all__ = ['itide']
+__all__ = ['itide', 'synthetic']
 
 #from . import postp

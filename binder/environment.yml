@@ -2,10 +2,12 @@ name: itide-ops-env
 channels:
   - conda-forge
 dependencies:
+  - pangeo-notebook==2020.05.10
   - pytide
   - pyinterp
   - xhistogram
-#  - pip
-#  - cmake
-#  - pip:
-#    - h3
+  - pip
+  - cmake
+  - sympy
+  - pip:
+    - h3
